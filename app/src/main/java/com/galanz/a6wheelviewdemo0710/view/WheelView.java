@@ -618,7 +618,7 @@ public class WheelView extends View {
                 measuredCenterContentStart(contentText);
                 Log.d("mgc", "drawCenterContentStart:" + drawCenterContentStart);
                 measuredOutContentStart(contentText);
-                float translateY = (float) (radius - Math.cos(radian) * radius - (Math.sin(radian) * maxTextHeight) / 2D);
+                float translateY = (float) (radius - Math.cos(radian) * radius - (Math.sin(radian) * maxTextHeight) / 2D) - toPx(getContext(), 55);
                 canvas.translate(0.0F, translateY);
                 if (translateY <= firstLineY && maxTextHeight + translateY >= firstLineY) {
                     // 条目经过第一条线
