@@ -98,7 +98,6 @@ public class WheelView extends View {
     private int visibleItemCount = ITEM_OFF_SET * 2 + 1;//绘制几个条目
     private int measuredHeight;//控件高度
     private int measuredWidth;//控件宽度
-    private int radius;//半径
     private int offset = 0;
     private float previousY = 0;
     private long startTime = 0;
@@ -426,7 +425,6 @@ public class WheelView extends View {
         //整个圆的周长除以PI得到直径，这个直径用作控件的总高度
 //        measuredHeight = (int) ((halfCircumference * 2) / Math.PI);
         //求出半径
-        radius = (int) (halfCircumference / Math.PI);
         ViewGroup.LayoutParams params = getLayoutParams();
         //控件宽度
         if (useWeight) {
@@ -444,8 +442,8 @@ public class WheelView extends View {
             }
         }
         //计算两条横线 和 选中项画笔的基线Y位置
-        firstLineY = (measuredHeight - itemHeight) / 2.0F;
-        secondLineY = (measuredHeight + itemHeight) / 2.0F;
+        firstLineY = (measuredHeight - maxTextHeight) / 2.0F;
+        secondLineY = (measuredHeight + maxTextHeight) / 2.0F;
         //初始化显示的item的position
         if (initPosition == -1) {
             if (isLoop) {
@@ -591,10 +589,11 @@ public class WheelView extends View {
             canvas.save();
             // 弧长 L = itemHeight * counter - itemHeightOffset
             // 求弧度 α = L / r  (弧长/半径) [0,π]
-            double radian = ((itemHeight * counter - itemHeightOffset)) / radius;
+//            double radian = ((itemHeight * counter - itemHeightOffset)) / radius;
             // 弧度转换成角度(把半圆以Y轴为轴心向右转90度，使其处于第一象限及第四象限
             // angle [-90°,90°]
-            float angle = (float) (90D - (radian / Math.PI) * 180D);//item第一项,从90度开始，逐渐递减到 -90度
+//            float angle = (float) (90D - (radian / Math.PI) * 180D);//item第一项,从90度开始，逐渐递减到 -90度
+            float angle = 20;
             // 计算取值可能有细微偏差，保证负90°到90°以外的不绘制
             if (angle >= 90F || angle <= -90F) {
                 canvas.restore();
@@ -618,7 +617,8 @@ public class WheelView extends View {
                 measuredCenterContentStart(contentText);
                 Log.d("mgc", "drawCenterContentStart:" + drawCenterContentStart);
                 measuredOutContentStart(contentText);
-                float translateY = (float) (radius - Math.cos(radian) * radius - (Math.sin(radian) * maxTextHeight) / 2D) - toPx(getContext(), 55);
+//                float translateY = (float) (radius - Math.cos(radian) * radius - (Math.sin(radian) * maxTextHeight) / 2D) - toPx(getContext(), 55);
+                float translateY = (float) (maxTextHeight * counter);
                 canvas.translate(0.0F, translateY);
                 if (translateY <= firstLineY && maxTextHeight + translateY >= firstLineY) {
                     // 条目经过第一条线
@@ -840,31 +840,31 @@ public class WheelView extends View {
             case MotionEvent.ACTION_CANCEL:
             default:
                 if (!eventConsumed) {//未消费掉事件
-                    /*
-                     * 关于弧长的计算
-                     *
-                     * 弧长公式： L = α*R
-                     * 反余弦公式：arccos(cosα) = α
-                     * 由于之前是有顺时针偏移90度，
-                     * 所以实际弧度范围α2的值 ：α2 = π/2-α    （α=[0,π] α2 = [-π/2,π/2]）
-                     * 根据正弦余弦转换公式 cosα = sin(π/2-α)
-                     * 代入，得： cosα = sin(π/2-α) = sinα2 = (R - y) / R
-                     * 所以弧长 L = arccos(cosα)*R = arccos((R - y) / R)*R
-                     */
-                    float y = event.getY();
-                    double L = Math.acos((radius - y) / radius) * radius;
-                    //item0 有一半是在不可见区域，所以需要加上 itemHeight / 2
-                    int circlePosition = (int) ((L + itemHeight / 2) / itemHeight);
-                    float extraOffset = (totalScrollY % itemHeight + itemHeight) % itemHeight;
-                    //已滑动的弧长值
-                    offset = (int) ((circlePosition - visibleItemCount / 2) * itemHeight - extraOffset);
-                    if ((System.currentTimeMillis() - startTime) > 120) {
-                        // 处理拖拽事件
-                        smoothScroll(ACTION_DRAG);
-                    } else {
-                        // 处理条目点击事件
-                        smoothScroll(ACTION_CLICK);
-                    }
+//                    /*
+//                     * 关于弧长的计算
+//                     *
+//                     * 弧长公式： L = α*R
+//                     * 反余弦公式：arccos(cosα) = α
+//                     * 由于之前是有顺时针偏移90度，
+//                     * 所以实际弧度范围α2的值 ：α2 = π/2-α    （α=[0,π] α2 = [-π/2,π/2]）
+//                     * 根据正弦余弦转换公式 cosα = sin(π/2-α)
+//                     * 代入，得： cosα = sin(π/2-α) = sinα2 = (R - y) / R
+//                     * 所以弧长 L = arccos(cosα)*R = arccos((R - y) / R)*R
+//                     */
+//                    float y = event.getY();
+//                    double L = Math.acos((radius - y) / radius) * radius;
+//                    //item0 有一半是在不可见区域，所以需要加上 itemHeight / 2
+//                    int circlePosition = (int) ((L + itemHeight / 2) / itemHeight);
+//                    float extraOffset = (totalScrollY % itemHeight + itemHeight) % itemHeight;
+//                    //已滑动的弧长值
+//                    offset = (int) ((circlePosition - visibleItemCount / 2) * itemHeight - extraOffset);
+//                    if ((System.currentTimeMillis() - startTime) > 120) {
+//                        // 处理拖拽事件
+//                        smoothScroll(ACTION_DRAG);
+//                    } else {
+//                        // 处理条目点击事件
+//                        smoothScroll(ACTION_CLICK);
+//                    }
                 }
                 if (parent != null) {
                     parent.requestDisallowInterceptTouchEvent(false);

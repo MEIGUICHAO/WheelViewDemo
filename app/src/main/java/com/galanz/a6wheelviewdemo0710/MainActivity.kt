@@ -19,7 +19,7 @@ class MainActivity : Activity() {
                 list.add("20.03.$i")
             }
         }
-        wheelView.setItems(list, 20)
+        wheelView.setItems(list, 0)
         wheelView.setCycleDisable(true)
         wheelView.setGravity(Gravity.CENTER)
 //        wheelView2.setItems(list, 20)
