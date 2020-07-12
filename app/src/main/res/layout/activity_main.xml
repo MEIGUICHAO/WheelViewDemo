@@ -1,29 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    tools:context=".MainActivity">
-    <com.galanz.a6wheelviewdemo0710.view.WheelView
-        android:id="@+id/wheelView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
-<!--    <LinearLayout-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintLeft_toLeftOf="parent"-->
-<!--        app:layout_constraintRight_toRightOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:orientation="horizontal">-->
-<!--&lt;!&ndash;        <com.galanz.a6wheelviewdemo0710.view.WheelView&ndash;&gt;-->
-<!--&lt;!&ndash;            android:id="@+id/wheelView2"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:layout_weight="1"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:layout_width="0dp"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:layout_height="match_parent" />&ndash;&gt;-->
+        <io.github.deweyreed.scrollhmspicker.ScrollHmsPicker
+            android:id="@+id/scrollHmsPicker"
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            app:shp_auto_step="true"
+            app:shp_hours="0"
+            android:gravity="center"
+            app:shp_minutes="14"
+            app:shp_seconds="43" />
 
-<!--    </LinearLayout>-->
+        <Button
+            android:id="@+id/btnGetTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Get Time" />
 
-</RelativeLayout>
+        <Button
+            android:id="@+id/btnDialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Show Dialog" />
+
+    </LinearLayout>
+</ScrollView>

@@ -1,30 +1,44 @@
 package com.galanz.a6wheelviewdemo0710
 
 import android.app.Activity
+import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Gravity
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import io.github.deweyreed.scrollhmspicker.ScrollHmsPicker
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : Activity() {
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        var list = ArrayList<String>()
-        for (i in 0 until 100) {
-            if (i < 10) {
-                list.add("20.03.0$i")
-            } else {
-                list.add("20.03.$i")
+        btnDialog.setOnClickListener {
+            val dialog = AlertDialog.Builder(this)
+                .setView(R.layout.dialog_picker)
+                .setPositiveButton(android.R.string.yes, null)
+                .show()
+            val picker: ScrollHmsPicker = dialog.findViewById<ScrollHmsPicker>(R.id.picker)!!
+
+            picker.setTypeface(Typeface.DEFAULT_BOLD)
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
+                onHmsPick(picker.hours, picker.minutes, picker.seconds)
+                dialog.dismiss()
             }
         }
-        wheelView.setItems(list, 0)
-        wheelView.setCycleDisable(true)
-        wheelView.setGravity(Gravity.CENTER)
-//        wheelView2.setItems(list, 20)
-//        wheelView2.setCycleDisable(true)
-//        wheelView2.setGravity(Gravity.CENTER)
+        btnGetTime.setOnClickListener {
+            onHmsPick(scrollHmsPicker.hours, scrollHmsPicker.minutes, scrollHmsPicker.seconds)
+        }
+    }
 
+    private fun onHmsPick(hours: Int, minutes: Int, seconds: Int) {
+        Toast.makeText(
+            this,
+            "hours: $hours, minutes: $minutes, seconds: $seconds",
+            Toast.LENGTH_SHORT
+        ).show()
     }
 }

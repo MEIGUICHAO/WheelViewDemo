@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -7,5 +7,79 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+    <declare-styleable name="NumberPickerView">
+        <!--set number of item displayed, default is 3-->
+        <attr name="npv_ShownCount" format="reference|integer" />
+        <!--set if show divider, default is true-->
+        <attr name="npv_ShowDivider" format="reference|boolean" />
+        <attr name="npv_DividerColor" format="reference|color" />
+        <attr name="npv_DividerMarginLeft" format="reference|dimension" />
+        <attr name="npv_DividerMarginRight" format="reference|dimension" />
+        <attr name="npv_DividerHeight" format="reference|dimension" />
+        <attr name="npv_TextColorNormal" format="reference|color" />
+        <attr name="npv_TextColorSelected" format="reference|color" />
+        <attr name="npv_TextColorHint" format="reference|color" />
+        <attr name="npv_TextSizeNormal" format="reference|dimension" />
+        <attr name="npv_TextSizeSelected" format="reference|dimension" />
+        <attr name="npv_TextSizeHint" format="reference|dimension" />
+        <attr name="npv_TextArray" format="reference" />
+        <attr name="npv_MinValue" format="reference|integer" />
+        <attr name="npv_MaxValue" format="reference|integer" />
+        <attr name="npv_WrapSelectorWheel" format="reference|boolean" />
+        <attr name="npv_RespondChangeOnDetached" format="reference|boolean" />
+        <attr name="npv_HintText" format="reference|string" />
+        <attr name="npv_EmptyItemHint" format="reference|string" />
+        <attr name="npv_MarginStartOfHint" format="reference|dimension" />
+        <attr name="npv_MarginEndOfHint" format="reference|dimension" />
+        <attr name="npv_ItemPaddingHorizontal" format="reference|dimension" />
+        <attr name="npv_ItemPaddingVertical" format="reference|dimension" />
+        <attr name="npv_RespondChangeInMainThread" format="reference|boolean" />
+        <attr name="npv_TextEllipsize" format="reference|string" />
+
+        <!--just used to measure maxWidth for wrap_content without hint,
+            the string array will never be displayed.
+            you can set this attr if you want to keep the wraped numberpickerview
+            width unchanged when alter the content list-->
+        <attr name="npv_AlternativeTextArrayWithMeasureHint" format="reference" />
+        <attr name="npv_AlternativeTextArrayWithoutMeasureHint" format="reference" />
+        <!--the max length of hint content-->
+        <attr name="npv_AlternativeHint" format="reference|string" />
+    </declare-styleable>
+
+    <style name="Shp" />
+    <style name="Shp.ScrollNumberPickerStyle">
+        <item name="npv_ShownCount">5</item>
+        <item name="npv_ShowDivider">false</item>
+        <item name="npv_WrapSelectorWheel">false</item>
+        <item name="npv_ItemPaddingHorizontal">2dp</item>
+        <item name="npv_TextSizeNormal">@dimen/shp_text_size_normal_item</item>
+        <item name="npv_TextSizeSelected">@dimen/shp_text_size_selected_item</item>
+        <item name="npv_TextColorNormal">@android:color/darker_gray</item>
+        <item name="npv_TextColorSelected">@android:color/holo_red_light</item>
+        <item name="android:requiresFadingEdge">vertical</item>
+        <item name="android:fadingEdgeLength">56dp</item>
+    </style>
+
+    <style name="Shp.Label">
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Headline</item>
+        <item name="android:textColor">@android:color/holo_red_light</item>
+        <item name="android:textSize">@dimen/shp_text_size_label</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <declare-styleable name="ScrollHmsPicker" tools:ignore="ResourceName">
+        <attr name="shp_normal_color" format="color" />
+        <attr name="shp_selected_color" format="color" />
+        <attr name="shp_hours" format="integer" />
+        <attr name="shp_minutes" format="integer" />
+        <attr name="shp_seconds" format="integer" />
+        <attr name="shp_auto_step" format="boolean" />
+        <attr name="shp_show_hours" format="boolean" />
+        <attr name="shp_show_minutes" format="boolean" />
+        <attr name="shp_show_seconds" format="boolean" />
+        <attr name="shp_enable_99_hours" format="boolean" />
+    </declare-styleable>
+
+
 
 </resources>
