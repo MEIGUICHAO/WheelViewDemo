@@ -62,7 +62,7 @@ public class NumberPickerView extends View {
     private static final int DEFAULT_DIVIDER_MARGIN_HORIZONTAL = 0;
 
     // default shown items' count, now we display 3 items, the 2nd one is selected
-    private static final int DEFAULT_SHOWN_COUNT = 9;
+    private static final int DEFAULT_SHOWN_COUNT = 3;
 
     // default items' horizontal padding, left padding and right padding are both 5dp,
     // only used in wrap_content mode
@@ -387,6 +387,7 @@ public class NumberPickerView extends View {
                                 willPickIndex = getWillPickIndexByGlobalY(mCurrDrawGlobalY);
                             }
                             Message changeMsg = getMsg(HANDLER_WHAT_LISTENER_VALUE_CHANGED, mPrevPickedIndex, willPickIndex, msg.obj);
+
                             if (mRespondChangeInMainThread) {
                                 mHandlerInMainThread.sendMessageDelayed(changeMsg, duration * 2);
                             } else {
@@ -1142,7 +1143,11 @@ public class NumberPickerView extends View {
     private void click(MotionEvent event) {
         float y = event.getY();
         for (int i = 0; i < mShownCount; i++) {
-            if (mItemHeight * i <= y && y < mItemHeight * (i + 1)) {
+            int caculateDistance = mItemHeight;
+            if (i < (mShownCount / 2 + 1)) {
+                caculateDistance -= adjustDistance;
+            }
+            if ((caculateDistance) * i <= y && y < (caculateDistance) * (i + 1)) {
                 clickItem(i);
                 break;
             }
@@ -1333,6 +1338,11 @@ public class NumberPickerView extends View {
                     str = TextUtils.ellipsize(str, mPaintText, getWidth() - 2 * mItemPaddingHorizontal, getEllipsizeType());
                 }
                 Log.d("mgc", "str:" + str + ",y:" + y + ",textSizeCenterYOffset:" + textSizeCenterYOffset);
+//                if (i ==1) {
+//                    y += dp2px(getContext(), 20);
+//                }if (i ==0) {
+//                    y += dp2px(getContext(), 40);
+//                }
                 canvas.drawText(str.toString(), mViewCenterX,
                         y + mItemHeight / 2 + textSizeCenterYOffset, mPaintText);
             } else if (!TextUtils.isEmpty(mEmptyItemHint)) {
