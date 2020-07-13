@@ -186,7 +186,7 @@ public class NumberPickerView extends View {
     private Handler mHandlerInNewThread;
     private Handler mHandlerInMainThread = new HandlerInMainThread(this);
     private int adjustDistance = -dp2px(getContext(), 0);
-    private int adjustSelectedSize = dp2px(getContext(), 0);
+    private int adjustSelectedSize = dp2px(getContext(), 20);
     private int adjustHintDistance = adjustDistance/2;
     private int velocityValue = 200;
     private String font = "rubik_regular.ttf";
@@ -1062,7 +1062,9 @@ public class NumberPickerView extends View {
             throw new IllegalArgumentException("mPaintText should not be null.");
         }
         mPaintText.setTextSize(mTextSizeSelected);
+        mTextSizeSelected += adjustSelectedSize;
         mTextSizeSelectedCenterYOffset = getTextCenterYOffset(mPaintText.getFontMetrics());
+        mTextSizeSelected -= adjustSelectedSize;
         mPaintText.setTextSize(mTextSizeNormal);
         mTextSizeNormalCenterYOffset = getTextCenterYOffset(mPaintText.getFontMetrics());
     }
@@ -1332,7 +1334,7 @@ public class NumberPickerView extends View {
             if (i == mShownCount / 2) {//this will be picked
                 fraction = (float) (mItemHeight + mCurrDrawFirstItemY) / mItemHeight;
                 textColor = getEvaluateColor(fraction, mTextColorNormal, mTextColorSelected);
-                textSize = getEvaluateSize(fraction, mTextSizeNormal, mTextSizeSelected);
+                textSize = getEvaluateSize(fraction, mTextSizeNormal, mTextSizeSelected );
                 textSizeCenterYOffset = getEvaluateSize(fraction, mTextSizeNormalCenterYOffset,
                         mTextSizeSelectedCenterYOffset);
             } else if (i == mShownCount / 2 + 1) {
