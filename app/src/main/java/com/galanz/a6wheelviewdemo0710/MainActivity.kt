@@ -28,7 +28,6 @@ class MainActivity : Activity() {
                 dialog.dismiss()
             }
         }
-        scrollHmsPicker.setTypeface(Typeface.DEFAULT_BOLD)
         btnGetTime.setOnClickListener {
             onHmsPick(scrollHmsPicker.hours, scrollHmsPicker.minutes)
         }

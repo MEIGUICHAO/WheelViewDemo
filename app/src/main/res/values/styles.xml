@@ -51,19 +51,12 @@
         <item name="npv_ShownCount">7</item>
         <item name="npv_ShowDivider">false</item>
         <item name="npv_WrapSelectorWheel">false</item>
-        <item name="npv_ItemPaddingHorizontal">2dp</item>
-        <item name="npv_TextSizeNormal">@dimen/shp_text_size_normal_item</item>
-        <item name="npv_TextSizeSelected">@dimen/shp_text_size_selected_item</item>
-        <item name="npv_TextColorNormal">@android:color/darker_gray</item>
-        <item name="npv_TextColorSelected">@android:color/holo_red_light</item>
         <item name="android:requiresFadingEdge">vertical</item>
     </style>
 
     <style name="Shp.Label">
-        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Headline</item>
         <item name="android:textColor">#7A7A7A</item>
         <item name="android:textSize">@dimen/shp_text_size_label</item>
-        <item name="android:textStyle">bold</item>
     </style>
 
     <declare-styleable name="ScrollHmsPicker" tools:ignore="ResourceName">
@@ -71,11 +64,7 @@
         <attr name="shp_selected_color" format="color" />
         <attr name="shp_hours" format="integer" />
         <attr name="shp_minutes" format="integer" />
-        <attr name="shp_seconds" format="integer" />
         <attr name="shp_auto_step" format="boolean" />
-        <attr name="shp_show_hours" format="boolean" />
-        <attr name="shp_show_minutes" format="boolean" />
-        <attr name="shp_show_seconds" format="boolean" />
         <attr name="shp_enable_99_hours" format="boolean" />
     </declare-styleable>
 

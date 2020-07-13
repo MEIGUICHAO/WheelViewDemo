@@ -8,12 +8,12 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
 import com.galanz.a6wheelviewdemo0710.R
 import com.galanz.a6wheelviewdemo0710.view.NumberPickerView
+import kotlinx.android.synthetic.main.shp_scrollhmspicker.view.*
 
 /**
  * Created on 2018/2/13.
@@ -24,10 +24,6 @@ open class ScrollHmsPicker @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) : LinearLayout(context, attrs, defStyleAttr) {
-    protected val pickerHours: NumberPickerView
-    protected val textHours: TextView
-    protected val pickerMinutes: NumberPickerView
-    protected val textMinutes: TextView
 
     private var autoStep: Boolean = false
     private var enable99Hours = false
@@ -39,6 +35,8 @@ open class ScrollHmsPicker @JvmOverloads constructor(
     var minutes: Int
         get() = pickerMinutes.value
         set(value) = setSafeMinutes(value)
+
+    val font = "rubik_regular.ttf"
 
 
     init {
@@ -59,60 +57,36 @@ open class ScrollHmsPicker @JvmOverloads constructor(
         )
         val hours = ta.getInteger(R.styleable.ScrollHmsPicker_shp_hours, 0)
         val minutes = ta.getInteger(R.styleable.ScrollHmsPicker_shp_minutes, 0)
-        val seconds = ta.getInteger(R.styleable.ScrollHmsPicker_shp_seconds, 0)
         val autoStep = ta.getBoolean(R.styleable.ScrollHmsPicker_shp_auto_step, false)
 
-        val showHours = ta.getBoolean(R.styleable.ScrollHmsPicker_shp_show_hours, true)
-        val showMinutes = ta.getBoolean(R.styleable.ScrollHmsPicker_shp_show_minutes, true)
-        val showSeconds = ta.getBoolean(R.styleable.ScrollHmsPicker_shp_show_seconds, true)
 
         enable99Hours = ta.getBoolean(R.styleable.ScrollHmsPicker_shp_enable_99_hours, false)
         ta.recycle()
 
-        pickerHours = findViewById<NumberPickerView>(R.id.pickerHours).apply {
-            maxValue = 99
-        }
-        pickerHours.wrapSelectorWheel = false
-        textHours = findViewById(R.id.textHours)
-        setHoursVisibility(showHours)
+        pickerHours.maxValue = 99
         set99Hours(enable99Hours)
 
-        pickerMinutes = findViewById<NumberPickerView>(R.id.pickerMinutes).apply {
-            maxValue = 59
-        }
-        textMinutes = findViewById(R.id.textMinutes)
-        setMinutesVisibility(showMinutes)
+        pickerMinutes.maxValue = 59
 
-        setSecondsVisibility(showSeconds)
 
         setSafeHours(hours)
         setSafeMinutes(minutes)
         setAutoStep(autoStep)
+        pickerHours.setHintTextColor(color(R.color.color333))
 
         arrayOf(pickerHours, pickerMinutes).forEach {
-//            it.setContentTextTypeface(Typeface.SANS_SERIF)
             it.setNormalTextColor(colorNormal)
             it.setSelectedTextColor(colorSelected)
-        }
-        //
-        //----------|
-        //          |
-        // selected |     |--|   <- label
-        //          |     |--|
-        //          |         ---->  move label to the bottom of selected item
-        // ---------|                padding == (selected size - label size) / 2
-        //
-        val textMarginTop = ((res.getDimension(R.dimen.shp_text_size_selected_item)
-                - res.getDimension(R.dimen.shp_text_size_label)) / 2).toInt()
+            it.wrapSelectorWheel = false
 
-        arrayOf(textHours, textMinutes).forEach { view ->
-            // align texts to the bottom of the selected text
-            view.layoutParams = (view.layoutParams as LayoutParams).also {
-                it.topMargin = textMarginTop
-            }
+        }
+
+        arrayOf(textDes,textHours,textMinutes).forEach {
+            it.setTypeface(Typeface.createFromAsset(context.assets, "font/$font"))
         }
 
     }
+
 
     fun setColorNormal(@ColorRes res: Int) {
         setColorIntNormal(color(res))
@@ -167,28 +141,10 @@ open class ScrollHmsPicker @JvmOverloads constructor(
         textMinutes.visibility = visibility
     }
 
-    fun setSecondsVisibility(show: Boolean) {
-        val visibility = if (show) VISIBLE else GONE
-    }
 
     fun set99Hours(enable: Boolean) {
         enable99Hours = enable
         pickerHours.setMinAndMaxShowIndex(0, if (enable) 99 else 23)
-    }
-
-    fun setTypeface(newTypeface: Typeface) {
-        pickerHours.setContentTextTypeface(newTypeface)
-        pickerHours.setHintTextTypeface(newTypeface)
-        textHours.typeface = newTypeface
-
-        pickerMinutes.setContentTextTypeface(newTypeface)
-        pickerMinutes.setHintTextTypeface(newTypeface)
-        textMinutes.typeface = newTypeface
-
-    }
-
-    fun getTypeface(): Typeface {
-        return textHours.typeface
     }
 
     private fun setSafeHours(hours: Int) {

@@ -19,6 +19,8 @@ import android.view.View;
 import android.view.ViewConfiguration;
 import android.widget.Scroller;
 
+import androidx.annotation.NonNull;
+
 import com.galanz.a6wheelviewdemo0710.R;
 
 import java.util.Map;
@@ -182,9 +184,11 @@ public class NumberPickerView extends View {
 
     private HandlerThread mHandlerThread;
     private Handler mHandlerInNewThread;
-    private Handler mHandlerInMainThread;
+    private Handler mHandlerInMainThread = new HandlerInMainThread(this);
     private int adjustDistance = -dp2px(getContext(), 0);
     private int adjustHintDistance = adjustDistance/2;
+    private int velocityValue = 200;
+    private String font = "rubik_regular.ttf";
 
     private Map<String, Integer> mTextWidthCache = new ConcurrentHashMap<>();
 
@@ -234,6 +238,10 @@ public class NumberPickerView extends View {
         super(context, attrs, defStyleAttr);
         initAttr(context, attrs);
         init(context);
+    }
+
+    private void setTTFFont(String ttf) {
+        mPaintText.setTypeface(Typeface.createFromAsset(getContext().getAssets(), "font/" + ttf));
     }
 
     private void initAttr(Context context, AttributeSet attrs) {
@@ -345,6 +353,7 @@ public class NumberPickerView extends View {
             updateValueForInit();
         }
         initHandler();
+        setTTFFont(font);
     }
 
     private void initHandler() {
@@ -401,20 +410,27 @@ public class NumberPickerView extends View {
                 }
             }
         };
-        mHandlerInMainThread = new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                super.handleMessage(msg);
-                switch (msg.what) {
-                    case HANDLER_WHAT_REQUEST_LAYOUT:
-                        requestLayout();
-                        break;
-                    case HANDLER_WHAT_LISTENER_VALUE_CHANGED:
-                        respondPickedValueChanged(msg.arg1, msg.arg2, msg.obj);
-                        break;
-                }
+    }
+
+    static class HandlerInMainThread extends Handler {
+
+        private NumberPickerView view;
+        public HandlerInMainThread(NumberPickerView pickerView) {
+            view = pickerView;
+        }
+
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case HANDLER_WHAT_REQUEST_LAYOUT:
+                    view.requestLayout();
+                    break;
+                case HANDLER_WHAT_LISTENER_VALUE_CHANGED:
+                    view.respondPickedValueChanged(msg.arg1, msg.arg2, msg.obj);
+                    break;
             }
-        };
+        }
     }
 
     private int mInScrollingPickedOldValue;
@@ -1119,7 +1135,7 @@ public class NumberPickerView extends View {
                     click(event);
                 } else {
                     final VelocityTracker velocityTracker = mVelocityTracker;
-                    velocityTracker.computeCurrentVelocity(1000);
+                    velocityTracker.computeCurrentVelocity(velocityValue);
                     int velocityY = (int) (velocityTracker.getYVelocity() * mFriction);
                     if (Math.abs(velocityY) > mMiniVelocityFling) {
                         mScroller.fling(0, mCurrDrawGlobalY, 0, -velocityY,

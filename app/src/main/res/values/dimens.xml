@@ -4,5 +4,5 @@
     if users use big system font size-->
     <dimen name="shp_text_size_normal_item">36dp</dimen>
     <dimen name="shp_text_size_selected_item">52dp</dimen>
-    <dimen name="shp_text_size_label">20dp</dimen>
+    <dimen name="shp_text_size_label">21sp</dimen>
 </resources>
