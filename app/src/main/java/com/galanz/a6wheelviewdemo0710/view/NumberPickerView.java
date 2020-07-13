@@ -186,7 +186,7 @@ public class NumberPickerView extends View {
     private Handler mHandlerInNewThread;
     private Handler mHandlerInMainThread = new HandlerInMainThread(this);
     private int adjustDistance = -dp2px(getContext(), 0);
-    private int adjustSelectedSize = dp2px(getContext(), 20);
+    private int adjustSelectedSize = dp2px(getContext(), 0);
     private int adjustHintDistance = adjustDistance/2;
     private int velocityValue = 200;
     private String font = "rubik_regular.ttf";
@@ -1349,6 +1349,12 @@ public class NumberPickerView extends View {
             }
             mPaintText.setColor(textColor);
             mPaintText.setTextSize(textSize);
+            int extra = 0;
+            if (i < (mShownCount ) / 2) {
+                extra = -dp2px(getContext(), 15);
+            } else if (i > (mShownCount ) / 2) {
+                extra = dp2px(getContext(), 15);
+            }
 
 
             if (0 <= index && index < getOneRecycleSize()) {
@@ -1356,14 +1362,15 @@ public class NumberPickerView extends View {
                 if (mTextEllipsize != null) {
                     str = TextUtils.ellipsize(str, mPaintText, getWidth() - 2 * mItemPaddingHorizontal, getEllipsizeType());
                 }
-                Log.d("mgc", "str:" + str + ",y:" + y + ",textSizeCenterYOffset:" + textSizeCenterYOffset+ ",mTextSizeNormalCenterYOffset:" + mTextSizeNormalCenterYOffset+ ",mTextSizeSelectedCenterYOffset:" + mTextSizeSelectedCenterYOffset);
+                Log.d("mgc", "str:" + str + ",y:" + y + ",textSizeCenterYOffset:" + textSizeCenterYOffset+ ",mTextSizeNormalCenterYOffset:" + mTextSizeNormalCenterYOffset
+                        + ",mTextSizeSelectedCenterYOffset:" + mTextSizeSelectedCenterYOffset+ ",间距:" + (y + mItemHeight / 2 + textSizeCenterYOffset));
 //                if (i ==1) {
 //                    y += dp2px(getContext(), 20);
 //                }if (i ==0) {
 //                    y += dp2px(getContext(), 40);
 //                }
                 canvas.drawText(str.toString(), mViewCenterX,
-                        y + mItemHeight / 2 + textSizeCenterYOffset, mPaintText);
+                        y + mItemHeight / 2 + textSizeCenterYOffset + extra, mPaintText);
             } else if (!TextUtils.isEmpty(mEmptyItemHint)) {
                 canvas.drawText(mEmptyItemHint, mViewCenterX,
                         y + mItemHeight / 2 + textSizeCenterYOffset, mPaintText);
