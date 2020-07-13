@@ -186,6 +186,7 @@ public class NumberPickerView extends View {
     private Handler mHandlerInNewThread;
     private Handler mHandlerInMainThread = new HandlerInMainThread(this);
     private int adjustDistance = -dp2px(getContext(), 0);
+    private int adjustSelectedSize = dp2px(getContext(), 0);
     private int adjustHintDistance = adjustDistance/2;
     private int velocityValue = 200;
     private String font = "rubik_regular.ttf";
@@ -1043,12 +1044,12 @@ public class NumberPickerView extends View {
     private int mNotWrapLimitYBottom;
 
     private void updateFontAttr() {
-        if (mTextSizeNormal > mItemHeight) {
-            mTextSizeNormal = mItemHeight;
-        }
-        if (mTextSizeSelected > mItemHeight) {
-            mTextSizeSelected = mItemHeight;
-        }
+//        if (mTextSizeNormal > mItemHeight) {
+//            mTextSizeNormal = mItemHeight;
+//        }
+//        if (mTextSizeSelected > mItemHeight) {
+//            mTextSizeSelected = mItemHeight;
+//        }
 
         if (mPaintHint == null) {
             throw new IllegalArgumentException("mPaintHint should not be null.");
@@ -1353,7 +1354,7 @@ public class NumberPickerView extends View {
                 if (mTextEllipsize != null) {
                     str = TextUtils.ellipsize(str, mPaintText, getWidth() - 2 * mItemPaddingHorizontal, getEllipsizeType());
                 }
-                Log.d("mgc", "str:" + str + ",y:" + y + ",textSizeCenterYOffset:" + textSizeCenterYOffset);
+                Log.d("mgc", "str:" + str + ",y:" + y + ",textSizeCenterYOffset:" + textSizeCenterYOffset+ ",mTextSizeNormalCenterYOffset:" + mTextSizeNormalCenterYOffset+ ",mTextSizeSelectedCenterYOffset:" + mTextSizeSelectedCenterYOffset);
 //                if (i ==1) {
 //                    y += dp2px(getContext(), 20);
 //                }if (i ==0) {
