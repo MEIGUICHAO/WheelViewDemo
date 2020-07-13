@@ -48,7 +48,7 @@
 
     <style name="Shp" />
     <style name="Shp.ScrollNumberPickerStyle">
-        <item name="npv_ShownCount">5</item>
+        <item name="npv_ShownCount">7</item>
         <item name="npv_ShowDivider">false</item>
         <item name="npv_WrapSelectorWheel">false</item>
         <item name="npv_ItemPaddingHorizontal">2dp</item>
@@ -57,12 +57,11 @@
         <item name="npv_TextColorNormal">@android:color/darker_gray</item>
         <item name="npv_TextColorSelected">@android:color/holo_red_light</item>
         <item name="android:requiresFadingEdge">vertical</item>
-        <item name="android:fadingEdgeLength">56dp</item>
     </style>
 
     <style name="Shp.Label">
         <item name="android:textAppearance">@style/TextAppearance.AppCompat.Headline</item>
-        <item name="android:textColor">@android:color/holo_red_light</item>
+        <item name="android:textColor">#7A7A7A</item>
         <item name="android:textSize">@dimen/shp_text_size_label</item>
         <item name="android:textStyle">bold</item>
     </style>

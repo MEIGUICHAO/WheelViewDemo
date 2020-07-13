@@ -23,21 +23,21 @@ class MainActivity : Activity() {
                 .show()
             val picker: ScrollHmsPicker = dialog.findViewById<ScrollHmsPicker>(R.id.picker)!!
 
-            picker.setTypeface(Typeface.DEFAULT_BOLD)
             dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
-                onHmsPick(picker.hours, picker.minutes, picker.seconds)
+                onHmsPick(picker.hours, picker.minutes)
                 dialog.dismiss()
             }
         }
+        scrollHmsPicker.setTypeface(Typeface.DEFAULT_BOLD)
         btnGetTime.setOnClickListener {
-            onHmsPick(scrollHmsPicker.hours, scrollHmsPicker.minutes, scrollHmsPicker.seconds)
+            onHmsPick(scrollHmsPicker.hours, scrollHmsPicker.minutes)
         }
     }
 
-    private fun onHmsPick(hours: Int, minutes: Int, seconds: Int) {
+    private fun onHmsPick(hours: Int, minutes: Int) {
         Toast.makeText(
             this,
-            "hours: $hours, minutes: $minutes, seconds: $seconds",
+            "hours: $hours, minutes: $minutes",
             Toast.LENGTH_SHORT
         ).show()
     }

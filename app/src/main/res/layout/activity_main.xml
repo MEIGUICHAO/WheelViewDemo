@@ -3,22 +3,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@android:color/black"
     android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:animateLayoutChanges="true"
+        android:background="@android:color/black"
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
         <io.github.deweyreed.scrollhmspicker.ScrollHmsPicker
             android:id="@+id/scrollHmsPicker"
-            android:layout_width="match_parent"
-            android:layout_height="500dp"
-            app:shp_auto_step="true"
-            app:shp_hours="0"
             android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:shp_auto_step="false"
+            app:shp_hours="0"
             app:shp_minutes="14"
             app:shp_seconds="43" />
 
@@ -26,12 +28,14 @@
             android:id="@+id/btnGetTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:text="Get Time" />
 
         <Button
             android:id="@+id/btnDialog"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:text="Show Dialog" />
 
     </LinearLayout>

@@ -28,8 +28,6 @@ open class ScrollHmsPicker @JvmOverloads constructor(
     protected val textHours: TextView
     protected val pickerMinutes: NumberPickerView
     protected val textMinutes: TextView
-    protected val pickerSeconds: NumberPickerView
-    protected val textSeconds: TextView
 
     private var autoStep: Boolean = false
     private var enable99Hours = false
@@ -42,9 +40,6 @@ open class ScrollHmsPicker @JvmOverloads constructor(
         get() = pickerMinutes.value
         set(value) = setSafeMinutes(value)
 
-    var seconds: Int
-        get() = pickerSeconds.value
-        set(value) = setSafeSeconds(value)
 
     init {
         orientation = HORIZONTAL
@@ -56,11 +51,11 @@ open class ScrollHmsPicker @JvmOverloads constructor(
 
         val colorNormal = ta.getColor(
             R.styleable.ScrollHmsPicker_shp_normal_color,
-            color(android.R.color.darker_gray)
+            color(R.color.color333)
         )
         @ColorInt val colorSelected = ta.getColor(
             R.styleable.ScrollHmsPicker_shp_selected_color,
-            color(android.R.color.holo_red_light)
+            color(R.color.colorSelected)
         )
         val hours = ta.getInteger(R.styleable.ScrollHmsPicker_shp_hours, 0)
         val minutes = ta.getInteger(R.styleable.ScrollHmsPicker_shp_minutes, 0)
@@ -88,19 +83,14 @@ open class ScrollHmsPicker @JvmOverloads constructor(
         textMinutes = findViewById(R.id.textMinutes)
         setMinutesVisibility(showMinutes)
 
-        pickerSeconds = findViewById<NumberPickerView>(R.id.pickerSeconds).apply {
-            maxValue = 59
-        }
-        textSeconds = findViewById(R.id.textSeconds)
         setSecondsVisibility(showSeconds)
 
         setSafeHours(hours)
         setSafeMinutes(minutes)
-        setSafeSeconds(seconds)
         setAutoStep(autoStep)
 
-        arrayOf(pickerHours, pickerMinutes, pickerSeconds).forEach {
-            it.setContentTextTypeface(Typeface.SANS_SERIF)
+        arrayOf(pickerHours, pickerMinutes).forEach {
+//            it.setContentTextTypeface(Typeface.SANS_SERIF)
             it.setNormalTextColor(colorNormal)
             it.setSelectedTextColor(colorSelected)
         }
@@ -115,8 +105,7 @@ open class ScrollHmsPicker @JvmOverloads constructor(
         val textMarginTop = ((res.getDimension(R.dimen.shp_text_size_selected_item)
                 - res.getDimension(R.dimen.shp_text_size_label)) / 2).toInt()
 
-        arrayOf(textHours, textMinutes, textSeconds).forEach { view ->
-            view.setTextColor(colorSelected)
+        arrayOf(textHours, textMinutes).forEach { view ->
             // align texts to the bottom of the selected text
             view.layoutParams = (view.layoutParams as LayoutParams).also {
                 it.topMargin = textMarginTop
@@ -130,7 +119,7 @@ open class ScrollHmsPicker @JvmOverloads constructor(
     }
 
     fun setColorIntNormal(@ColorInt color: Int) {
-        arrayOf(pickerHours, pickerMinutes, pickerSeconds).forEach {
+        arrayOf(pickerHours, pickerMinutes).forEach {
             it.setNormalTextColor(color)
         }
     }
@@ -140,10 +129,10 @@ open class ScrollHmsPicker @JvmOverloads constructor(
     }
 
     fun setColorIntSelected(@ColorInt color: Int) {
-        arrayOf(pickerHours, pickerMinutes, pickerSeconds).forEach {
+        arrayOf(pickerHours, pickerMinutes).forEach {
             it.setSelectedTextColor(color)
         }
-        arrayOf(textHours, textMinutes, textSeconds).forEach {
+        arrayOf(textHours, textMinutes).forEach {
             it.setTextColor(color)
         }
     }
@@ -160,17 +149,8 @@ open class ScrollHmsPicker @JvmOverloads constructor(
                         pickerHours.smoothScrollToValue(if (hoursVal > 0) hoursVal - 1 else ((if (enable99Hours) 99 else 23)))
                     }
                 }
-                pickerSeconds.setOnValueChangeListenerInScrolling { _, oldVal, newVal ->
-                    val minutesVal = pickerMinutes.value
-                    if (oldVal == 59 && newVal == 0) {
-                        pickerMinutes.smoothScrollToValue((minutesVal + 1) % 60)
-                    } else if (oldVal == 0 && newVal == 59) {
-                        pickerMinutes.smoothScrollToValue(if (minutesVal > 0) minutesVal - 1 else 59)
-                    }
-                }
             } else {
                 pickerMinutes.setOnValueChangeListenerInScrolling(null)
-                pickerSeconds.setOnValueChangeListenerInScrolling(null)
             }
         }
     }
@@ -189,8 +169,6 @@ open class ScrollHmsPicker @JvmOverloads constructor(
 
     fun setSecondsVisibility(show: Boolean) {
         val visibility = if (show) VISIBLE else GONE
-        pickerSeconds.visibility = visibility
-        textSeconds.visibility = visibility
     }
 
     fun set99Hours(enable: Boolean) {
@@ -207,9 +185,6 @@ open class ScrollHmsPicker @JvmOverloads constructor(
         pickerMinutes.setHintTextTypeface(newTypeface)
         textMinutes.typeface = newTypeface
 
-        pickerSeconds.setContentTextTypeface(newTypeface)
-        pickerSeconds.setHintTextTypeface(newTypeface)
-        textSeconds.typeface = newTypeface
     }
 
     fun getTypeface(): Typeface {
@@ -224,9 +199,6 @@ open class ScrollHmsPicker @JvmOverloads constructor(
         if (minutes in 0..59) scrollToValue(pickerMinutes, minutes)
     }
 
-    private fun setSafeSeconds(seconds: Int) {
-        if (seconds in 0..59) scrollToValue(pickerSeconds, seconds)
-    }
 
     private fun scrollToValue(picker: NumberPickerView, value: Int) {
 //        if (animateToValue) {
@@ -241,7 +213,6 @@ open class ScrollHmsPicker @JvmOverloads constructor(
         return (if (parent != null) SavedState(parent) else SavedState()).also { state ->
             state.hours = hours
             state.minutes = minutes
-            state.seconds = seconds
         }
     }
 
@@ -250,7 +221,6 @@ open class ScrollHmsPicker @JvmOverloads constructor(
             super.onRestoreInstanceState(state.superState)
             hours = state.hours
             minutes = state.minutes
-            seconds = state.seconds
         } else {
             super.onRestoreInstanceState(state)
         }
