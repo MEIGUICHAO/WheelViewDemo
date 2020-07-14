@@ -3,58 +3,30 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:background="@android:color/black"
-    android:paddingTop="21dp"
+    android:paddingTop="25dp"
     android:layout_height="match_parent">
-
     <com.galanz.a6wheelviewdemo0710.view.NumberPickerView
         android:id="@+id/pickerHours"
         style="@style/Shp.ScrollNumberPickerStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="400dp"
+        app:npv_HintText = "@string/shp_hours_label"
         app:npv_MaxValue="99"
-        android:paddingStart="55dp"
-        android:paddingEnd="25dp"
         app:npv_MinValue="0"
-        app:npv_TextSizeSelected="78sp"
-        app:npv_TextSizeNormal="55sp"
-        app:npv_TextArray="@array/shp_0to99" />
+        app:npv_TextArray="@array/shp_0to99"
+        android:paddingEnd="25dp"
+        android:paddingStart="55dp" />
 
-    <TextView
-        android:id="@+id/textHours"
-        style="@style/Shp.Label"
-        android:layout_toEndOf="@id/pickerHours"
-        android:layout_marginStart="-25dp"
-        android:paddingBottom="140dp"
-        android:layout_centerVertical="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/shp_hours_label" />
+
 
     <com.galanz.a6wheelviewdemo0710.view.NumberPickerView
         android:id="@+id/pickerMinutes"
         style="@style/Shp.ScrollNumberPickerStyle"
-        android:layout_toEndOf="@id/pickerHours"
-        android:layout_width="wrap_content"
-        android:layout_height="550dp"
+        app:npv_HintText = "@string/shp_minutes_label"
         app:npv_MaxValue="59"
         app:npv_MinValue="0"
-        app:npv_TextSizeSelected="78sp"
-        app:npv_TextSizeNormal="55sp"
+        app:npv_TextArray="@array/shp_0to59"
+        android:layout_toEndOf="@id/pickerHours"
         android:paddingEnd="47dp"
-        android:paddingStart="22dp"
-        app:npv_TextArray="@array/shp_0to59" />
-
-    <TextView
-        android:id="@+id/textMinutes"
-        style="@style/Shp.Label"
-        android:layout_toRightOf="@id/pickerMinutes"
-        android:layout_width="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="-47dp"
-        android:paddingBottom="60dp"
-        android:text="@string/shp_minutes_label" />
+        android:paddingStart="22dp" />
 
     <View
         android:background="@mipmap/rectangular_mask_yes"
@@ -65,7 +37,7 @@
         android:textSize="21sp"
         android:layout_alignParentBottom="true"
         android:text="A slice of pie takes 10-15 minutes to reheat"
-        android:layout_marginBottom="110dp"
+        android:layout_marginBottom="120dp"
         android:textColor="#7A7A7A"
         android:gravity="center"
         android:layout_marginLeft="30dp"

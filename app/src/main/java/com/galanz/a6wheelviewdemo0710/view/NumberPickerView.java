@@ -187,7 +187,8 @@ public class NumberPickerView extends View {
     private Handler mHandlerInMainThread = new HandlerInMainThread(this);
     private int adjustDistance = -dp2px(getContext(), 0);
     private int adjustSelectedSize = dp2px(getContext(), 0);
-    private int adjustHintDistance = adjustDistance/2;
+    private int adjustHintYDistance = dp2px(getContext(), 18);
+    private int adjustHintXDistance = -dp2px(getContext(), 5);
     private int velocityValue = 200;
     private String font = "rubik_regular.ttf";
 
@@ -1351,9 +1352,9 @@ public class NumberPickerView extends View {
             mPaintText.setTextSize(textSize);
             int extra = 0;
             if (i < (mShownCount ) / 2) {
-                extra = -dp2px(getContext(), 15);
+                extra = -dp2px(getContext(), 20);
             } else if (i > (mShownCount ) / 2) {
-                extra = dp2px(getContext(), 15);
+                extra = dp2px(getContext(), 20);
             }
 
 
@@ -1405,8 +1406,8 @@ public class NumberPickerView extends View {
             return;
         }
         canvas.drawText(mHintText,
-                mViewCenterX + (mMaxWidthOfDisplayedValues + mWidthOfHintText) / 2 + mMarginStartOfHint,
-                (dividerY0 + dividerY1) / 2 + mTextSizeHintCenterYOffset + adjustHintDistance, mPaintHint);
+                mViewCenterX + (mMaxWidthOfDisplayedValues + mWidthOfHintText) / 2 + mMarginStartOfHint + adjustHintXDistance,
+                (dividerY0 + dividerY1) / 2 + mTextSizeHintCenterYOffset + adjustHintYDistance, mPaintHint);
     }
 
     private void updateMaxWidthOfDisplayedValues() {

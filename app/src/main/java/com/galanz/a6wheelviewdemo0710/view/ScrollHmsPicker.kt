@@ -72,7 +72,6 @@ open class ScrollHmsPicker @JvmOverloads constructor(
         setSafeHours(hours)
         setSafeMinutes(minutes)
         setAutoStep(autoStep)
-        pickerHours.setHintTextColor(color(R.color.color333))
 
         arrayOf(pickerHours, pickerMinutes).forEach {
             it.setNormalTextColor(colorNormal)
@@ -81,9 +80,7 @@ open class ScrollHmsPicker @JvmOverloads constructor(
 
         }
 
-        arrayOf(textDes,textHours,textMinutes).forEach {
-            it.setTypeface(Typeface.createFromAsset(context.assets, "font/$font"))
-        }
+        textDes.setTypeface(Typeface.createFromAsset(context.assets, "font/$font"))
 
     }
 
@@ -98,18 +95,7 @@ open class ScrollHmsPicker @JvmOverloads constructor(
         }
     }
 
-    fun setColorSelected(@ColorRes res: Int) {
-        setColorIntSelected(color(res))
-    }
 
-    fun setColorIntSelected(@ColorInt color: Int) {
-        arrayOf(pickerHours, pickerMinutes).forEach {
-            it.setSelectedTextColor(color)
-        }
-        arrayOf(textHours, textMinutes).forEach {
-            it.setTextColor(color)
-        }
-    }
 
     fun setAutoStep(newValue: Boolean) {
         if (newValue != autoStep) {
@@ -129,17 +115,6 @@ open class ScrollHmsPicker @JvmOverloads constructor(
         }
     }
 
-    fun setHoursVisibility(show: Boolean) {
-        val visibility = if (show) VISIBLE else GONE
-        pickerHours.visibility = visibility
-        textHours.visibility = visibility
-    }
-
-    fun setMinutesVisibility(show: Boolean) {
-        val visibility = if (show) VISIBLE else GONE
-        pickerMinutes.visibility = visibility
-        textMinutes.visibility = visibility
-    }
 
 
     fun set99Hours(enable: Boolean) {
