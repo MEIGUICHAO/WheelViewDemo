@@ -106,8 +106,8 @@ public class NumberPickerView extends View {
     private int mTextColorNormal = DEFAULT_TEXT_COLOR_NORMAL;
     private int mTextColorSelected = DEFAULT_TEXT_COLOR_SELECTED;
     private int mTextColorHint = DEFAULT_TEXT_COLOR_SELECTED;
-    private int mTextSizeNormal = 0;
-    private int mTextSizeSelected = 0;
+    public int mTextSizeNormal = 0;
+    public int mTextSizeSelected = 0;
     private int mTextSizeHint = 0;
     private int mWidthOfHintText = 0;
     private int mWidthOfAlterHint = 0;
@@ -242,7 +242,7 @@ public class NumberPickerView extends View {
         init(context);
     }
 
-    private void setTTFFont(String ttf) {
+    public void setTTFFont(String ttf) {
         mPaintText.setTypeface(Typeface.createFromAsset(getContext().getAssets(), "font/" + ttf));
     }
 
@@ -1460,7 +1460,7 @@ public class NumberPickerView extends View {
         mPaintText.setTextSize(savedTextSize);
     }
 
-    private void updateContentAndIndex(String[] newDisplayedValues) {
+    public void updateContentAndIndex(String[] newDisplayedValues) {
         mMinShowIndex = 0;
         mMaxShowIndex = newDisplayedValues.length - 1;
         mDisplayedValues = newDisplayedValues;
@@ -1575,7 +1575,7 @@ public class NumberPickerView extends View {
         return (int) (spValue * fontScale + 0.5f);
     }
 
-    private int dp2px(Context context, float dpValue) {
+    public int dp2px(Context context, float dpValue) {
         final float densityScale = context.getResources().getDisplayMetrics().density;
         return (int) (dpValue * densityScale + 0.5f);
     }

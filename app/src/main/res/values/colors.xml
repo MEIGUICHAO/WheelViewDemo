@@ -5,4 +5,5 @@
     <color name="colorAccent">#03DAC5</color>
     <color name="color333">#333333</color>
     <color name="colorSelected">#FE4013</color>
+    <color name="wheelCurrentTimeSelecte">#1680F5</color>
 </resources>

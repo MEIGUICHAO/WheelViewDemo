@@ -81,7 +81,9 @@ open class ScrollHmsPicker @JvmOverloads constructor(
         }
 
         textDes.setTypeface(Typeface.createFromAsset(context.assets, "font/$font"))
+//        setNoTextStytle()
 
+        setCurrentTimeStyle("设置当前的时间")
     }
 
 
@@ -93,6 +95,19 @@ open class ScrollHmsPicker @JvmOverloads constructor(
         arrayOf(pickerHours, pickerMinutes).forEach {
             it.setNormalTextColor(color)
         }
+    }
+
+    fun setNoTextStytle() {
+        bgHasText.setImageDrawable(resources.getDrawable(R.mipmap.rectangular_mask_no))
+        textDes.visibility = View.GONE
+        rlParent.setPadding(0, 130, 0, 0)
+    }
+
+    fun setCurrentTimeStyle(s: String) {
+        arrayOf(pickerHours, pickerMinutes).forEach {
+            it.setSelectedTextColor(resources.getColor(R.color.wheelCurrentTimeSelecte))
+        }
+        textDes.setText(s)
     }
 
 

@@ -53,7 +53,23 @@
         <item name="npv_WrapSelectorWheel">false</item>
         <item name="android:requiresFadingEdge">vertical</item>
         <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">400dp</item>
+        <item name="android:layout_height">440dp</item>
+        <item name="android:paddingTop">25dp</item>
+        <item name="npv_TextColorHint">#7A7A7A</item>
+        <item name="npv_TextSizeHint">21sp</item>
+        <item name="npv_TextSizeSelected">78sp</item>
+        <item name="npv_TextSizeNormal">55sp</item>
+
+    </style>
+    <style name="Shp.SingleWheelStyle">
+        <item name="npv_ShownCount">7</item>
+        <item name="npv_ShowDivider">false</item>
+        <item name="npv_WrapSelectorWheel">false</item>
+        <item name="android:requiresFadingEdge">vertical</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:layout_height">440dp</item>
+        <item name="shp_selected_color">#FE4013</item>
         <item name="npv_TextColorHint">#7A7A7A</item>
         <item name="npv_TextSizeHint">21sp</item>
         <item name="npv_TextSizeSelected">78sp</item>

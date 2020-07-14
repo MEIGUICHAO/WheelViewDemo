@@ -4,4 +4,12 @@
     <string name="shp_hours_label">h</string>
     <string name="shp_minutes_label">min</string>
     <string name="shp_seconds_label">s</string>
+    <array name="broil_level" >
+        <item>微火</item>
+        <item>小火</item>
+        <item>中小火</item>
+        <item>中火</item>
+        <item>大火</item>
+        <item>猛火</item>
+    </array>
 </resources>

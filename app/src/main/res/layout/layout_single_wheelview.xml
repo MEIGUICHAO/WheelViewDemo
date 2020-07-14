@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.galanz.a6wheelviewdemo0710.view.NumberPickerView
+        android:id="@+id/wheelView"
+        style="@style/Shp.SingleWheelStyle" />
+
+
+    <ImageView
+        android:id="@+id/bgHasText"
+        android:src="@mipmap/rectangular_mask_yes"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <TextView
+        android:id="@+id/textDes"
+        android:textSize="21sp"
+        android:layout_alignParentBottom="true"
+        android:text="A slice of pie takes 10-15 minutes to reheat"
+        android:layout_marginBottom="120dp"
+        android:textColor="#7A7A7A"
+        android:gravity="center"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</RelativeLayout>
